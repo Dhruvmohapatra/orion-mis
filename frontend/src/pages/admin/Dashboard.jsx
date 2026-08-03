@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import api from '../../services/api';
 import StatsCard from '../../components/StatsCard';
 import ChartWidget from '../../components/ChartWidget';
-import { AcademicCapIcon, UserGroupIcon, BuildingOfficeIcon, BookOpenIcon, ClipboardDocumentCheckIcon, UsersIcon } from '@heroicons/react/24/outline';
+import { AcademicCapIcon, UserGroupIcon, BuildingOfficeIcon, BookOpenIcon, ClipboardDocumentCheckIcon, UsersIcon, PlusIcon, DocumentChartBarIcon } from '@heroicons/react/24/outline';
 
 const Dashboard = () => {
   const [stats, setStats] = useState(null);
@@ -49,16 +50,26 @@ const Dashboard = () => {
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-8">
-      <div className="page-header">
-        <h1 className="page-title">Admin Dashboard</h1>
-        <p className="page-subtitle">Overview of the university management system</p>
+      <div className="academic-hero">
+        <div className="relative z-10 flex flex-col gap-6 xl:flex-row xl:items-center xl:justify-between">
+          <div>
+            <p className="text-sm font-semibold text-sky-100">ORION UNIVERSITY · ADMIN PORTAL</p>
+            <h1 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">Good morning, Aarav <span aria-hidden="true">👋</span></h1>
+            <p className="mt-2 text-sm text-blue-50/90">Welcome back to Orion MIS. Here is today’s university overview.</p>
+          </div>
+          <div className="flex flex-wrap gap-3">
+            <Link to="/admin/students" className="inline-flex items-center gap-2 rounded-xl bg-white px-4 py-2.5 text-sm font-semibold text-blue-700 shadow-sm transition-transform hover:-translate-y-0.5"><PlusIcon className="h-4 w-4" /> Add Student</Link>
+            <Link to="/admin/faculty" className="inline-flex items-center gap-2 rounded-xl border border-white/30 bg-white/10 px-4 py-2.5 text-sm font-semibold text-white backdrop-blur transition-colors hover:bg-white/20"><PlusIcon className="h-4 w-4" /> Add Faculty</Link>
+            <Link to="/admin/reports" className="inline-flex items-center gap-2 rounded-xl border border-white/30 bg-white/10 px-4 py-2.5 text-sm font-semibold text-white backdrop-blur transition-colors hover:bg-white/20"><DocumentChartBarIcon className="h-4 w-4" /> Generate Report</Link>
+          </div>
+        </div>
       </div>
 
       {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <StatsCard title="Total Students" value={stats?.totalStudents || 0} icon={AcademicCapIcon} color="primary" />
-        <StatsCard title="Total Faculty" value={stats?.totalFaculty || 0} icon={UserGroupIcon} color="emerald" />
-        <StatsCard title="Departments" value={stats?.totalDepartments || 0} icon={BuildingOfficeIcon} color="amber" />
+        <StatsCard title="Total Students" value={stats?.totalStudents || 0} icon={AcademicCapIcon} color="primary" trend="up" trendValue="12.4% this term" />
+        <StatsCard title="Total Faculty" value={stats?.totalFaculty || 0} icon={UserGroupIcon} color="emerald" trend="up" trendValue="4.8% this term" />
+        <StatsCard title="Departments" value={stats?.totalDepartments || 0} icon={BuildingOfficeIcon} color="amber" trend="up" trendValue="2 added recently" />
         <StatsCard title="Total Courses" value={stats?.totalCourses || 0} icon={BookOpenIcon} color="violet" />
         <StatsCard title="Total Enrollments" value={stats?.totalEnrollments || 0} icon={ClipboardDocumentCheckIcon} color="cyan" />
         <StatsCard title="Active Users" value={stats?.activeUsers || 0} icon={UsersIcon} color="rose" />

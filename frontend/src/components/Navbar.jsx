@@ -2,14 +2,16 @@ import { useState, useRef, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
 import {
-  SunIcon,
-  MoonIcon,
   ArrowRightOnRectangleIcon,
   Bars3Icon,
   BellIcon,
   CheckCircleIcon,
   CalendarIcon,
-  MegaphoneIcon
+  MegaphoneIcon,
+  ChevronDownIcon,
+  SunIcon,
+  MoonIcon,
+  MagnifyingGlassIcon
 } from '@heroicons/react/24/outline';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -48,15 +50,16 @@ const Navbar = ({ onMenuToggle }) => {
 
   const [notifications, setNotifications] = useState(defaultNotifications);
   const [showNotifications, setShowNotifications] = useState(false);
+  const [showProfile, setShowProfile] = useState(false);
   const dropdownRef = useRef(null);
+  const profileRef = useRef(null);
 
   const unreadCount = notifications.filter(n => n.unread).length;
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setShowNotifications(false);
-      }
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) setShowNotifications(false);
+      if (profileRef.current && !profileRef.current.contains(event.target)) setShowProfile(false);
     };
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
@@ -76,53 +79,47 @@ const Navbar = ({ onMenuToggle }) => {
   };
 
   return (
-    <header className="sticky top-0 z-20 backdrop-blur-xl bg-white/80 dark:bg-dark-card/80 border-b border-gray-100 dark:border-dark-border">
-      <div className="flex items-center justify-between h-16 px-6">
+    <header className="sticky top-0 z-20 border-b border-slate-200 bg-white/85 backdrop-blur-xl dark:border-slate-700 dark:bg-slate-900/85">
+      <div className="flex h-16 items-center justify-between px-4 sm:px-6">
         <div className="flex items-center gap-4">
           <button
             onClick={onMenuToggle}
-            className="lg:hidden p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-dark-border transition-colors"
+            className="rounded-xl p-2 text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800 lg:hidden"
             id="menu-toggle-btn"
           >
-            <Bars3Icon className="w-5 h-5 text-gray-600 dark:text-dark-muted" />
+            <Bars3Icon className="w-5 h-5" />
           </button>
           <div className="hidden sm:block">
-            <h1 className="text-sm font-semibold text-gray-900 dark:text-white">
+            <h1 className="text-sm font-semibold text-slate-900 dark:text-slate-100">
               {user?.role} Dashboard
             </h1>
-            <p className="text-xs text-gray-400 dark:text-dark-muted">
+            <p className="text-xs text-slate-500 dark:text-slate-400">
               {new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
             </p>
           </div>
         </div>
 
-        <div className="flex items-center gap-3">
-          {/* Dark mode toggle */}
-          <button
-            onClick={toggleDarkMode}
-            className="p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-dark-border transition-colors"
-            id="theme-toggle-btn"
-          >
-            {darkMode ? (
-              <SunIcon className="w-5 h-5 text-amber-400" />
-            ) : (
-              <MoonIcon className="w-5 h-5 text-gray-500" />
-            )}
+        <div className="flex items-center gap-2 sm:gap-3">
+          <label className="relative hidden lg:block">
+            <MagnifyingGlassIcon className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+            <input aria-label="Search Orion MIS" className="h-9 w-56 rounded-xl border-slate-200 bg-slate-50 pl-9 pr-3 text-xs text-slate-700 placeholder:text-slate-400 focus:border-blue-400 focus:bg-white dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:focus:bg-slate-800" placeholder="Search Orion MIS" />
+          </label>
+          <button onClick={toggleDarkMode} className="rounded-xl p-2 text-slate-600 transition-colors hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800" aria-label={darkMode ? 'Switch to light mode' : 'Switch to dark mode'} id="theme-toggle-btn">
+            {darkMode ? <SunIcon className="h-5 w-5 text-amber-400" /> : <MoonIcon className="h-5 w-5 text-slate-500" />}
           </button>
-
           {/* Notifications Dropdown */}
           <div className="relative" ref={dropdownRef}>
             <button
               onClick={() => setShowNotifications(!showNotifications)}
-              className="relative p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-dark-border transition-colors text-gray-600 dark:text-dark-muted"
+              className="relative rounded-xl p-2 text-slate-600 transition-colors hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"
               id="notification-bell-btn"
             >
               <BellIcon className="w-5 h-5" />
               {unreadCount > 0 && (
-                <span className="absolute top-1.5 right-1.5 w-2.5 h-2.5 bg-red-500 rounded-full ring-2 ring-white dark:ring-dark-card animate-ping"></span>
+                <span className="absolute top-1.5 right-1.5 w-2.5 h-2.5 bg-rose-500 rounded-full ring-2 ring-white animate-ping"></span>
               )}
               {unreadCount > 0 && (
-                <span className="absolute top-1.5 right-1.5 w-2.5 h-2.5 bg-red-500 rounded-full ring-2 ring-white dark:ring-dark-card"></span>
+                <span className="absolute top-1.5 right-1.5 w-2.5 h-2.5 bg-rose-500 rounded-full ring-2 ring-white"></span>
               )}
             </button>
 
@@ -133,7 +130,7 @@ const Navbar = ({ onMenuToggle }) => {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: 10, scale: 0.95 }}
                   transition={{ duration: 0.15 }}
-                  className="absolute right-0 mt-2 w-80 sm:w-96 glass-card shadow-2xl overflow-hidden z-50 p-0"
+                  className="absolute right-0 z-50 mt-2 w-80 overflow-hidden rounded-2xl border border-slate-200 bg-white p-0 shadow-xl sm:w-96"
                 >
                   <div className="p-4 border-b border-gray-100 dark:border-dark-border flex items-center justify-between bg-primary-50/50 dark:bg-primary-900/10">
                     <div className="flex items-center gap-2">
@@ -201,25 +198,7 @@ const Navbar = ({ onMenuToggle }) => {
             </AnimatePresence>
           </div>
 
-          {/* User info */}
-          <div className="hidden sm:flex items-center gap-3 pl-3 border-l border-gray-200 dark:border-dark-border">
-            <div className="text-right">
-              <p className="text-sm font-semibold text-gray-700 dark:text-white">{user?.username}</p>
-              <p className="text-xs text-gray-400 dark:text-dark-muted">{user?.email}</p>
-            </div>
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-primary-500 to-primary-700 flex items-center justify-center">
-              <span className="text-white text-sm font-bold">{user?.username?.charAt(0)}</span>
-            </div>
-          </div>
-
-          {/* Logout */}
-          <button
-            onClick={handleLogout}
-            className="p-2 rounded-xl hover:bg-red-50 dark:hover:bg-red-900/20 text-gray-400 hover:text-red-500 transition-colors"
-            id="logout-btn"
-          >
-            <ArrowRightOnRectangleIcon className="w-5 h-5" />
-          </button>
+          <button onClick={handleLogout} className="rounded-xl p-2 text-slate-500 hover:bg-rose-50 hover:text-rose-600 sm:hidden" id="logout-btn" aria-label="Sign out"><ArrowRightOnRectangleIcon className="h-5 w-5" /></button><div className="relative hidden border-l border-slate-200 pl-3 sm:block" ref={profileRef}><button onClick={() => setShowProfile(!showProfile)} className="flex items-center gap-2 rounded-xl p-1.5 hover:bg-slate-50"><div className="hidden text-right md:block"><p className="text-sm font-semibold text-slate-700">{user?.username}</p><p className="text-xs text-slate-400">{user?.role}</p></div><div className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-indigo-500 to-violet-600"><span className="text-sm font-bold text-white">{user?.username?.charAt(0)}</span></div><ChevronDownIcon className="h-4 w-4 text-slate-400" /></button>{showProfile && <div className="absolute right-0 mt-2 w-56 rounded-xl border border-slate-200 bg-white p-2 shadow-xl"><div className="border-b border-slate-100 px-3 py-2"><p className="text-sm font-semibold text-slate-800">{user?.username}</p><p className="truncate text-xs text-slate-500">{user?.email}</p></div><button onClick={handleLogout} className="mt-1 flex w-full items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-medium text-rose-600 hover:bg-rose-50" id="logout-dropdown-btn"><ArrowRightOnRectangleIcon className="h-4 w-4" />Sign out</button></div>}</div>
         </div>
       </div>
     </header>

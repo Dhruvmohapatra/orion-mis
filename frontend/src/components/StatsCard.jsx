@@ -29,14 +29,15 @@ const StatsCard = ({ title, value, icon: Icon, color = 'primary', trend, trendVa
       transition={{ type: 'spring', stiffness: 300 }}
       className="stats-card"
     >
+      <div className={`absolute inset-x-6 top-0 h-1 rounded-b-full bg-gradient-to-r ${colorMap[color]} opacity-80`} />
       <div className="flex items-center justify-between">
         <div>
           <p className="text-sm font-medium text-gray-500 dark:text-dark-muted">{title}</p>
-          <p className="mt-2 text-3xl font-extrabold text-gray-900 dark:text-white tracking-tight">
+          <p className="mt-2 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white">
             {value}
           </p>
           {trend && (
-            <p className={`mt-2 text-xs font-medium ${trend === 'up' ? 'text-emerald-600' : 'text-red-500'}`}>
+            <p className={`mt-2 inline-flex items-center rounded-full px-2 py-1 text-xs font-semibold ${trend === 'up' ? 'bg-emerald-50 text-emerald-600 dark:bg-emerald-500/10' : 'bg-rose-50 text-red-500 dark:bg-rose-500/10'}`}>
               {trend === 'up' ? '↑' : '↓'} {trendValue}
             </p>
           )}

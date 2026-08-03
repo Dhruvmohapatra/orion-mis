@@ -17,13 +17,13 @@ const ConfirmDialog = ({ isOpen, onConfirm, onCancel, title, message }) => {
         animate={{ opacity: 1, scale: 1 }}
         className="relative glass-card p-6 max-w-sm w-full mx-4"
       >
-        <div className="flex items-center gap-3 mb-4">
-          <div className="p-2 rounded-xl bg-red-100 dark:bg-red-900/30">
-            <ExclamationTriangleIcon className="w-6 h-6 text-red-600 dark:text-red-400" />
+        <div className="mb-4 flex items-center gap-3">
+          <div className="rounded-2xl bg-rose-50 p-2.5">
+            <ExclamationTriangleIcon className="h-6 w-6 text-rose-600" />
           </div>
-          <h3 className="text-lg font-bold text-gray-900 dark:text-white">{title || 'Confirm Action'}</h3>
+          <h3 className="text-lg font-bold text-slate-900">{title || 'Confirm Action'}</h3>
         </div>
-        <p className="text-sm text-gray-600 dark:text-dark-muted mb-6">{message || 'Are you sure you want to proceed?'}</p>
+        <p className="mb-6 text-sm text-slate-600">{message || 'Are you sure you want to proceed?'}</p>
         <div className="flex gap-3 justify-end">
           <button onClick={onCancel} className="btn-secondary" id="confirm-cancel-btn">Cancel</button>
           <button onClick={onConfirm} className="btn-danger" id="confirm-ok-btn">Delete</button>

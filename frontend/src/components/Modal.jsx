@@ -30,17 +30,17 @@ const Modal = ({ isOpen, onClose, title, children, size = 'md' }) => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-              className={`relative w-full ${sizeClasses[size]} glass-card p-0 overflow-hidden`}
+              className={`relative w-full ${sizeClasses[size]} glass-card overflow-hidden p-0`}
             >
               {/* Header */}
-              <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 dark:border-dark-border bg-gradient-to-r from-primary-50 to-white dark:from-primary-900/20 dark:to-dark-card">
-                <h3 className="text-lg font-bold text-gray-900 dark:text-white">{title}</h3>
+              <div className="flex items-center justify-between border-b border-slate-100 bg-gradient-to-r from-blue-50 to-white px-6 py-4">
+                <h3 className="text-lg font-bold text-slate-900">{title}</h3>
                 <button
                   onClick={onClose}
-                  className="p-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-dark-border transition-colors"
+                  className="rounded-xl p-1.5 transition-colors hover:bg-slate-100"
                   id="modal-close-btn"
                 >
-                  <XMarkIcon className="w-5 h-5 text-gray-400" />
+                  <XMarkIcon className="h-5 w-5 text-slate-400" />
                 </button>
               </div>
 

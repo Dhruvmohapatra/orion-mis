@@ -62,12 +62,12 @@ const StudentDashboard = () => {
             </div>
           </div>
 
-          <div className="flex items-center gap-3 bg-slate-950/60 p-3 rounded-2xl border border-indigo-500/30 backdrop-blur-xl">
-            <div className="text-center px-4 border-r border-indigo-900/60">
+          <div className="flex items-center gap-3 bg-white/10 p-3 rounded-2xl border border-white/20 backdrop-blur-xl">
+            <div className="text-center px-4 border-r border-white/20">
               <p className="text-[10px] font-bold uppercase text-indigo-300">CGPA</p>
               <p className="text-xl font-extrabold text-amber-400">3.85</p>
             </div>
-            <div className="text-center px-4 border-r border-indigo-900/60">
+            <div className="text-center px-4 border-r border-white/20">
               <p className="text-[10px] font-bold uppercase text-indigo-300">Attendance</p>
               <p className={`text-xl font-extrabold ${attendanceRate >= 75 ? 'text-emerald-400' : 'text-amber-400'}`}>
                 {attendanceRate}%
@@ -90,10 +90,10 @@ const StudentDashboard = () => {
 
       {/* Enrolled Courses Section */}
       <div className="glass-card p-6">
-        <div className="flex items-center justify-between mb-6 pb-3 border-b border-slate-800">
+        <div className="flex items-center justify-between mb-6 pb-3 border-b border-slate-100">
           <div className="flex items-center gap-2">
-            <AcademicCapIcon className="w-5 h-5 text-amber-400" />
-            <h3 className="text-lg font-bold text-white">Current Enrolled Courses</h3>
+            <AcademicCapIcon className="w-5 h-5 text-indigo-600" />
+            <h3 className="text-lg font-bold text-slate-900">Current Enrolled Courses</h3>
           </div>
           <span className="badge-info">{enrollments.length} Active Courses</span>
         </div>
@@ -103,14 +103,14 @@ const StudentDashboard = () => {
             const course = e.courseOffering?.course;
             const faculty = e.courseOffering?.faculty;
             return (
-              <div key={e.enrollment_id} className="p-5 rounded-2xl border border-slate-700/80 bg-slate-900/60 hover:border-indigo-500/40 transition-all">
+              <div key={e.enrollment_id} className="p-5 rounded-2xl border border-slate-200 bg-slate-50 hover:border-indigo-300 transition-all">
                 <div className="flex justify-between items-start">
                   <span className="badge-gold text-xs">{course?.course_code}</span>
-                  <span className="text-xs font-semibold text-slate-400">{course?.credits} Credits</span>
+                  <span className="text-xs font-semibold text-slate-500">{course?.credits} Credits</span>
                 </div>
-                <h4 className="font-bold text-white text-base mt-2">{course?.course_name}</h4>
-                <div className="mt-3 pt-3 border-t border-slate-800 flex items-center justify-between text-xs text-slate-400">
-                  <span>Instructor: <strong className="text-slate-200">{faculty?.user?.username || 'Faculty Member'}</strong></span>
+                <h4 className="font-bold text-slate-900 text-base mt-2">{course?.course_name}</h4>
+                <div className="mt-3 pt-3 border-t border-slate-200 flex items-center justify-between text-xs text-slate-500">
+                  <span>Instructor: <strong className="text-slate-700">{faculty?.user?.username || 'Faculty Member'}</strong></span>
                   <span className="badge-info text-[10px]">Section {e.courseOffering?.section}</span>
                 </div>
               </div>

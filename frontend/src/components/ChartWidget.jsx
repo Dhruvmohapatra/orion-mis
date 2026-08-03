@@ -18,14 +18,14 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, PointElement, LineEleme
 const chartTypes = { bar: Bar, pie: Pie, line: Line, doughnut: Doughnut };
 
 const defaultColors = [
-  'rgba(99, 102, 241, 0.8)',
-  'rgba(16, 185, 129, 0.8)',
-  'rgba(245, 158, 11, 0.8)',
-  'rgba(239, 68, 68, 0.8)',
-  'rgba(139, 92, 246, 0.8)',
-  'rgba(6, 182, 212, 0.8)',
-  'rgba(236, 72, 153, 0.8)',
-  'rgba(249, 115, 22, 0.8)'
+  'rgba(37, 99, 235, 0.82)',
+  'rgba(14, 165, 233, 0.82)',
+  'rgba(6, 182, 212, 0.82)',
+  'rgba(16, 185, 129, 0.82)',
+  'rgba(56, 189, 248, 0.82)',
+  'rgba(125, 211, 252, 0.82)',
+  'rgba(96, 165, 250, 0.82)',
+  'rgba(148, 163, 184, 0.82)'
 ];
 
 const ChartWidget = ({ type = 'bar', title, labels, datasets, height = 300 }) => {
